@@ -1,0 +1,279 @@
+{% load widget_tweaks %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap 4 CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Sidebar Styles */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #2c3e50;
+            padding-top: 30px;
+            padding-right: 15px;
+            overflow-y: auto;
+        }
+
+        .sidebar a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #1abc9c;
+            color: white;
+        }
+
+        .sidebar .active {
+            background-color: #16a085;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            margin-left: 250px; /* offset for the sidebar */
+            background-color: #34495e;
+        }
+
+        .navbar .navbar-brand, .navbar .navbar-nav .nav-link {
+            color: white !important;
+        }
+
+        .navbar .navbar-nav .nav-link:hover {
+            color: #1abc9c !important;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .card {
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-header {
+            background-color: #34495e;
+            color: white;
+            font-size: 1.5rem;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .form-body {
+            padding: 20px;
+        }
+
+        .form-body label {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .form-body .input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #2c3e50;
+            transition: 0.3s;
+        }
+
+        .form-body .input:focus {
+            border-color: #1abc9c;
+            outline: none;
+        }
+
+        .button input[type="submit"] {
+            background-color: #1abc9c;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button input[type="submit"]:hover {
+            background-color: #16a085;
+        }
+
+        /* Cards for services section */
+        .service-card {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .service-card .card-body {
+            padding: 15px;
+        }
+
+        .service-card .card-title {
+            font-family: 'Helvetica Neue', sans-serif;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .service-card .card-text {
+            font-family: 'Arial', sans-serif;
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .service-card .btn {
+            padding: 8px 16px;
+            font-size: 0.875rem;
+            border-radius: 25px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .service-card .btn:hover {
+            transform: scale(1.1);
+        }
+
+        .container-fluid {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        /* Custom styling for the row */
+        .service-card-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around; /* Center the cards more evenly */
+        }
+
+        /* Adjust width of cards and their responsiveness */
+        .service-card-col {
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-bottom: 30px;
+            flex: 1 1 33%; /* Default to 33% width for larger screens */
+            max-width: 33%; /* Prevents cards from becoming too wide */
+            box-sizing: border-box; /* Prevents padding from increasing the width */
+        }
+
+        @media (max-width: 768px) {
+            .service-card-col {
+                flex: 1 1 45%; /* On smaller screens, show two items per row */
+                max-width: 45%; /* Restrict the max width to 45% */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .service-card-col {
+                flex: 1 1 100%; /* On very small screens, show one item per row */
+                max-width: 100%; /* Full width on small screens */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Panel</h2>
+        </div>
+        <li><a href="{% url 'worker-dashboard' %}" class="active" style="color: white;">Home</a></li>
+        <li><a href="{% url 'services' %}" style="color: white;">Services</a></li>
+        <li><a href="{% url 'bookings' %}" style="color: white;">Bookings</a></li>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Dashboard</a>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" href="{% url 'home' %}">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="form-body">
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="service-card-row">
+                    {% for service in services %}
+                    <div class="service-card-col">
+                        <div class="service-card shadow-sm">
+                            <img class="card-img-top" src="{% static service.service_pic.url %}" alt="{{ service.worker.user.username }}'s profile pic">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-center">{{ service.worker.user.username }}</h5>
+                                <p class="card-text">
+                                    <strong>Item:</strong> {{ service.skills }}<br>
+                                    <i class="fas fa-map-marker-alt" style="color: #5a5a5a; font-size: 13px;"></i> {{ service.city }}<br>
+                                    <strong>Ingredients:</strong> &#8377; {{ service.service_rate }}<br>
+                                    <i class="fas fa-phone" style="color: #5a5a5a; font-size: 13px;"></i> {{ service.phone }}
+                                </p>
+                                <div class="card-footer">
+                                    <a href="{% url 'update-service' service.id %}" class="btn btn-primary btn-sm"><i class="far fa-edit"></i> Edit</a>
+                                    <a href="{% url 'delete-service' service.id %}" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

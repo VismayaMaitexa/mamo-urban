@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Doni Charity</title>
+      <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+      <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+      <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/gif" />
+      <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+   </head>
+   <body>
+      <!-- Fundraise Section Start -->
+      <div class="fundraise_section">
+         <div class="fundraise_section_main">
+            <div class="row">
+               <div class="col-lg-4">
+                  <div class="box_main">
+                     <div class="icon_1"><img src="{% static 'images/icon-1.png' %}"></div>
+                     <h4 class="volunteer_text">VOLUNTEERS</h4>
+                     <p class="lorem_text">Lorem Ipsum generators on the Internet tend to repeat predefined</p>
+                     <div class="join_bt"><a href="#">Join Now</a></div>
+                  </div>
+               </div>
+               <div class="col-lg-4">
+                  <div class="box_main active">
+                     <div class="icon_1"><img src="{% static 'images/icon-2.png' %}"></div>
+                     <h4 class="volunteer_text">FUNDRAISE</h4>
+                     <p class="lorem_text">Lorem Ipsum generators on the Internet tend to repeat predefined</p>
+                     <div class="join_bt"><a href="#">Join Now</a></div>
+                  </div>
+               </div>
+               <div class="col-lg-4">
+                  <div class="box_main">
+                     <div class="icon_1"><img src="{% static 'images/icon-3.png' %}"></div>
+                     <h4 class="volunteer_text">DONATION</h4>
+                     <p class="lorem_text">Lorem Ipsum generators on the Internet tend to repeat predefined</p>
+                     <div class="join_bt"><a href="#">Join Now</a></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Mission Section -->
+      <div class="mission_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-sm-12 text-center">
+                  <h1 class="mission_taital">Mission Causes</h1>
+                  <p class="mission_text">If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+               </div>
+            </div>
+         </div>
+         <div class="mission_section_2 py-5">
+            <div class="container">
+               <div class="row">
+                  {% for service in services %}
+                  <div class="col-md-4 mb-3">
+                     <div class="card shadow-lg border-0 rounded-3 h-100">
+                        <img src="{% static service.service_pic.url %}" class="card-img-top img-fluid" alt="{{ service.worker.user.username }}'s profile pic" style="height: 250px; object-fit: cover; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                        <div class="card-body text-center d-flex flex-column">
+                           <h5 class="card-title fw-bold text-primary">{{ service.worker.user.username }}</h5>
+                           <p class="card-text text-muted"><strong>Ingredient:</strong> {{ service.service_rate }}</p>
+                           <p class="card-text"><strong>Item:</strong> {{ service.skills }}</p>
+                           <p class="card-text"><strong>City:</strong> {{ service.city }}</p>
+                           <div class="mt-auto d-flex justify-content-center gap-3">
+                              <a href="{% url 'add-to-cart' service.id %}" class="btn btn-success px-4">Buy</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  {% if forloop.counter|divisibleby:2 %}
+               </div>
+               <div class="row">
+                  {% endif %}
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
+         
+         
+      </div>
+      <!-- Javascript Files -->
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+      <script src="{% static 'js/plugin.js' %}"></script>
+      <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+      <script src="{% static 'js/custom.js' %}"></script>
+      <script src="{% static 'js/owl.carousel.js' %}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+   </body>
+</html>

@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        /* Add some basic styling for the form */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            background: url("{% static 'assets/images/blog/payment.jpg' %}") no-repeat center center fixed;
+            background-size: 100% 100%;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: rgb(149, 147, 147);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="submit"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Details</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="worker">Worker:</label>
+                {{ form.worker }}  <!-- Dropdown for worker selection -->
+                {{ form.worker.errors }}
+            </div>
+            <div class="form-group">
+                <label for="account_holder_name">Account Holder Name:</label>
+                {{ form.account_holder_name }}
+                {{ form.account_holder_name.errors }}
+            </div>
+            <div class="form-group">
+                <label for="card_number">Card Number:</label>
+                {{ form.card_number }}
+                {{ form.card_number.errors }}
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV:</label>
+                {{ form.cvv }}
+                {{ form.cvv.errors }}
+            </div>
+            <div class="form-group">
+                <label for="expiry_date">Expiry Date:</label>
+                {{ form.expiry_date }}
+                {{ form.expiry_date.errors }}
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount to Pay:</label>
+                {{ form.amount }}
+                {{ form.amount.errors }}
+            </div>
+            <input type="submit" value="Pay Now">
+        </form>
+        
+        {% if booking %}
+            <p>Booking ID: {{ booking.id }}</p>
+            <p>Amount: {{ booking.amount }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

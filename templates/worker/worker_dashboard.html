@@ -1,0 +1,185 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap 4 CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Sidebar Styles */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #2c3e50;
+            padding-top: 30px;
+            padding-right: 15px;
+            overflow-y: auto;
+        }
+
+        .sidebar a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #1abc9c;
+            color: white;
+        }
+
+        .sidebar .active {
+            background-color: #16a085;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            margin-left: 250px; /* offset for the sidebar */
+            background-color: #34495e;
+        }
+
+        .navbar .navbar-brand, .navbar .navbar-nav .nav-link {
+            color: white !important;
+        }
+
+        .navbar .navbar-nav .nav-link:hover {
+            color: #1abc9c !important;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .card {
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #34495e;
+            color: white;
+            font-size: 1.5rem;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .form-body {
+            padding: 20px;
+        }
+
+        .form-body label {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .form-body .input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            color: #2c3e50;
+            transition: 0.3s;
+        }
+
+        .form-body .input:focus {
+            border-color: #1abc9c;
+            outline: none;
+        }
+
+        .button input[type="submit"] {
+            background-color: #1abc9c;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button input[type="submit"]:hover {
+            background-color: #16a085;
+        }
+
+        .container-fluid {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Panel</h2>
+        </div>
+        <li><a href="{% url 'worker-dashboard' %}" class="active" style="color: white;">Home</a></li>
+        <li><a href="{% url 'services' %}" style="color: white;">Services</a></li>
+        <li><a href="{% url 'bookings' %}" style="color: white;">Bookings</a></li>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Dashboard</a>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" href="{% url 'home' %}">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="card">
+            <div class="card-header">
+                <h3>Add Service</h3>
+            </div>
+            <div class="form-body">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <label for="service_pic">Service Image:</label>
+                    {% render_field serviceform.service_pic class='input' %}
+
+                    <label for="skills">Name:</label>
+                    {% render_field serviceform.skills class='input' %}
+
+                    <label for="city">City:</label>
+                    {% render_field serviceform.city class='input' %}
+
+                    <label for="service_rate">Ingredients:</label>
+                    {% render_field serviceform.service_rate class='input' %}
+
+                    <label for="phone">Phone:</label>
+                    {% render_field serviceform.phone class='input' %}
+
+                    <div class="button">
+                        <input type="submit" value="Add Service">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
